@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils import timezone
 
 class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None):
@@ -53,10 +54,8 @@ class Movie(models.Model):
     def __str__(self):
         return self.name
     
-from django.db import models
-from django.utils import timezone
-from django.core.validators import MaxValueValidator
-from .models import Movie
+
+
 
 class ShowDetails(models.Model):
     id = models.AutoField(primary_key=True)
