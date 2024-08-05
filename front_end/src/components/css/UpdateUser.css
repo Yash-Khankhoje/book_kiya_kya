@@ -1,0 +1,75 @@
+.update-user-card {
+  position: fixed; /* Make it fixed to overlay the entire screen */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Center the div */
+  background-color: white;
+  border: 2px solid #ccc;
+  border-radius: 15px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  z-index: 1000; /* Ensure it's above other content */
+  width: 400px; /* Fixed width for the form */
+}
+
+.update-user-form h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.update-user-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.update-user-form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1) inset;
+}
+
+.update-user-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.update-cancel-button {
+  background-color: #f1f1f1;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.update-cancel-button:hover {
+  background-color: #ddd;
+}
+
+.update-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.update-button:hover {
+  background-color: #45a049;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999; /* Make sure it is behind the update card but above other content */
+}

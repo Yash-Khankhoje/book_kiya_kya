@@ -1,0 +1,83 @@
+/* src/components/css/ShowDetails.css */
+
+.show-details-page {
+    background: linear-gradient(to right, #ffcccc, #ffddcc); /* Mixture of skin color and baby pink color */
+    padding: 20px;
+    text-align: center;
+}
+
+.show-movie-info {
+    margin-bottom: 20px;
+}
+
+.show-movie-image {
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 5%;
+}
+
+.movie-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+}
+
+.show-details-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 3 cards per row */
+    gap: 20px;
+}
+
+.show-card {
+    background: linear-gradient(to bottom, #ffffff, #a8d5ba, #7abf92); /* Mixture of shades of white, dark green, and light green */
+    border: 2px solid darkblue;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+}
+
+.show-card:hover {
+    transform: scale(1.05); /* Enlarge the card */
+}
+
+.book-now-button {
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.show-card:hover .book-now-button {
+    display: block;
+}
+  
+.theater-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: darkblue;
+    padding-left: 40%;
+}
+
+.show-timing {
+    color: rgb(41, 39, 41);
+}
+
+.available-seats {
+    color: black;
+}
+
+.price {
+    color: black;
+    font-weight: bold;
+}

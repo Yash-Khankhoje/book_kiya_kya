@@ -1,0 +1,52 @@
+/* src/components/css/DeleteConfirmation.css */
+.delete-confirmation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+.delete-confirmation-card {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  padding: 20px;
+  z-index: 1002; /* Higher than overlay */
+}
+
+.delete-confirmation-card p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.delete-confirmation-buttons {
+  display: flex;
+  justify-content: space-around; /* Space between buttons */
+}
+
+.user-cancellation-button,
+.delete-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.user-cancellation-button {
+  background-color: #00FF00 !important; /* Green */
+  color: white;
+}
+
+.delete-button {
+  background-color: #FF0000; /* Red */
+  color: white;
+}

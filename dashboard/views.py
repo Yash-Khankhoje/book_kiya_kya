@@ -9,6 +9,7 @@ from .models import *
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.contrib.auth import logout
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 
 class SignupView(APIView):
     def post(self, request):
@@ -40,7 +41,9 @@ class LoginView(APIView):
 
         return Response({
             'access': str(refresh.access_token),
-            'refresh': str(refresh)
+            'refresh': str(refresh),
+            'is_superuser': user.is_superuser,
+            'id': user.id,
         })
     
 class UserListView(APIView):
@@ -50,6 +53,14 @@ class UserListView(APIView):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class UserDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
     
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
@@ -92,6 +103,37 @@ class DeleteUserView(APIView):
             return Response({'message': 'User deleted successfully.'}, status=status.HTTP_204_NO_CONTENT)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class CreateCityView(APIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+    def post(self, request):
+        try:
+            serializer = CitySerializer(data=request.data, context={'request': request})
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class ListCitiesView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            queryset = Cities.objects.all()
+
+            # Filtering based on request parameters
+            city = request.query_params.get('city')
+            if city:
+                queryset = queryset.filter(city__icontains=city)
+
+            serializer = CitySerializer(queryset, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
         
 class CreateMovieView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
@@ -231,10 +273,30 @@ class DeleteShowDetailsView(APIView):
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
+from django.db.models import Q
+
 class ListShowDetailsView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         try:
-            show_details = ShowDetails.objects.all()
+            # Extract query parameters
+            movie_id = request.query_params.get('movie_id', None)
+            show_date = request.query_params.get('showDate', None)
+            city = request.query_params.get('city', None)
+
+            # Build query based on parameters
+            filters = Q()
+            if movie_id:
+                filters &= Q(movie_id=movie_id)
+            if show_date:
+                filters &= Q(showDate=show_date)
+            if city:
+                filters &= Q(city=city)
+
+            # Apply filters to the query
+            show_details = ShowDetails.objects.filter(filters)
+
+            # Serialize data
             serialized_data = []
             for show_detail in show_details:
                 serialized_data.append({
@@ -254,8 +316,10 @@ class ListShowDetailsView(APIView):
             return Response(serialized_data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
         
 class MovieTicketBookingView(APIView):
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         try:
             # Extract data from request
@@ -286,7 +350,7 @@ class MovieTicketBookingView(APIView):
                 tickets=tickets,
                 total_bill=total_bill,
                 booking_date=booking_date,
-                status='Completed'
+                status='Confirmed'
             )
 
             # Associate user with booking
@@ -300,6 +364,7 @@ class MovieTicketBookingView(APIView):
         
 
 class UpdateBookingView(APIView):
+    permission_classes = [IsAuthenticated]
     def put(self, request, booking_id):
         try:
             # Retrieve booking
@@ -342,6 +407,7 @@ class UpdateBookingView(APIView):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         
 class CancelBookingView(APIView):
+    permission_classes = [IsAuthenticated]
     def delete(self, request, booking_id):
         try:
             # Check if the booking exists
@@ -369,3 +435,77 @@ class CancelBookingView(APIView):
             return Response({'error': 'Booking not found.'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class UserBookingsListView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            # Get the current user
+            user = request.user
+
+            # Retrieve all bookings for the logged-in user
+            user_bookings = User_Bookings.objects.filter(user=user)
+            
+            # Prepare a list to hold serialized data
+            serialized_data = []
+            for user_booking in user_bookings:
+                booking = user_booking.booking
+                show_details = booking.show_details
+
+                # Build the data dictionary
+                data = {
+                    'movieName': show_details.movie.name,
+                    'theaterName': show_details.theaterName,
+                    'showDate': show_details.showDate,
+                    'booking_date': booking.booking_date,
+                    'tickets': booking.tickets,
+                    'timing': show_details.timing,
+                    'total_bill': booking.total_bill,
+                    'status': booking.status,
+                    'booking_id': booking.id,
+                    'ticket_price': show_details.ticketPrice,
+                }
+
+                # Append the data to the list
+                serialized_data.append(data)
+
+            return Response(serialized_data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class BookingDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, booking_id):
+        try:
+            # Retrieve the booking
+            booking = get_object_or_404(Bookings, id=booking_id)
+
+            # Check if the booking belongs to the logged-in user
+            user_booking = User_Bookings.objects.filter(user=request.user, booking=booking).first()
+            if not user_booking:
+                return Response({'error': 'You do not have permission to view this booking.'}, status=status.HTTP_403_FORBIDDEN)
+            
+            # Prepare the data for response
+            show_details = booking.show_details
+            data = {
+                'booking_id': booking.id,
+                'movieName': show_details.movie.name,
+                'theaterName': show_details.theaterName,
+                'showDate': show_details.showDate,
+                'booking_date': booking.booking_date,
+                'tickets': booking.tickets,
+                'timing': show_details.timing,
+                'total_bill': float(booking.total_bill),  # Ensure conversion to float
+                'ticketPrice': show_details.ticketPrice
+            }
+
+            return Response(data, status=status.HTTP_200_OK)
+        except Exception as e:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error in BookingDetailView: {str(e)}", exc_info=True)
+
+            return Response({'error': 'An unexpected error occurred.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

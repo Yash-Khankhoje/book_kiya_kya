@@ -1,0 +1,70 @@
+/* src/components/css/Home.css */
+.home-page {
+  background-color: #F5F5F5; /* Off white background */
+  min-height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  padding: 1000px 20px 20px; /* Padding for the main content, added 1000px top padding */
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns in grid */
+  gap: 20px; /* Gap between cards */
+  width: 100%;
+  max-width: 1200px; /* Max width of the card container */
+}
+
+.movie-card {
+  background-color: #F8E9F0; /* Light baby pink background */
+  border: 2px solid #ADD8E6; /* Light blue border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect */
+  border-radius: 10px; /* Curvy borders */
+  overflow: hidden; /* Prevent content overflow */
+  display: flex;
+  flex-direction: column;
+  height: 320px; /* Set fixed height */
+}
+
+.movie-image {
+  width: 200px; /* Fixed width */
+  height: 200px; /* Fixed height */
+  object-fit: cover; /* Maintain aspect ratio */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Shadow effect */
+}
+
+.movie-info {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-details {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.movie-detail {
+  margin-right: 20px; /* Spacing between details */
+}
+
+.movie-description {
+  padding: 10px;
+  text-align: left; /* Align text to the left */
+}
+
+.movie-ratings {
+  color: red; /* Default color for ratings, adjusted in JavaScript */
+}
+
+.star {
+  color: red; /* Default star color, adjusted in JavaScript */
+}

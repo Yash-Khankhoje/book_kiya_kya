@@ -1,0 +1,59 @@
+/* src/components/css/UpdateMovie.css */
+
+.update-movie-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.update-movie-card {
+    background-color: purple;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+}
+
+.update-movie-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.update-movie-input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.update-movie-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.update-movie-cancel-button {
+    background-color: green;
+    color: white;
+    border: 1px solid lightblue;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.update-movie-update-button {
+    background-color: red;
+    color: white;
+    border: 1px solid lightblue;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}

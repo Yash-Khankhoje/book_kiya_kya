@@ -1,0 +1,44 @@
+/* src/components/css/MovieDeleteConfirmationModal.css */
+.delete-confirmation-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .delete-confirmation-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .delete-confirmation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .no-button, .yes-button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: 2px solid skyblue;
+  }
+  
+  .no-button {
+    background-color: green;
+    color: white;
+  }
+  
+  .yes-button {
+    background-color: red;
+    color: white;
+  }
+  

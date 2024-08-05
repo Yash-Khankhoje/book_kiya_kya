@@ -1,0 +1,224 @@
+/* src/components/css/Navbar.css */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* Padding from all sides */
+    height: 38px; /* Adjusted height */
+    border: 1px solid black; /* Visible border */
+    background: linear-gradient(135deg, #FFFFFF, #00FF00, #000000); /* Gradient background reversed */
+    backdrop-filter: blur(8px); /* Glassy effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Thicker shadow effect */
+    border-radius: 8px; /* Curvy effect */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    z-index: 1000;
+    margin-top: 10px;
+  }
+  
+  .navbar-left,
+  .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-logo {
+    height: 30px; /* Adjusted logo size */
+    margin-right: 10px;
+  }
+  
+  .navbar-title {
+    font-size: 16px; /* Adjusted font size */
+    font-weight: bold;
+    color: #000000; /* Text color for visibility */
+  }
+  
+  .navbar-right {
+    position: relative; /* Ensure dropdown is positioned relative to this */
+    height: 38px; /* Match the height of the navbar */
+  }
+  
+  .settings-icon,
+  .location-icon,
+  .video-icon { /* Add styling for the video icon */
+    font-size: 24px; /* Increased icon size */
+    color: #FFFFFF; /* White color for better contrast */
+    background-color: #000000; /* Dark background for visibility */
+    border-radius: 50%; /* Circular background */
+    padding: 5px; /* Padding to make the icon stand out */
+    cursor: pointer;
+    margin-left: 20px; /* Spacing between icons */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Shadow effect for better visibility */
+  }
+  
+  .settings-icon {
+    margin-left: 10px; /* Spacing from the location icon */
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: #FFFFFF; /* Background color for dropdown */
+    border: 1px solid black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none; /* Hidden by default */
+    border-radius: 5px; /* Curvy effect for dropdown */
+    padding: 0; /* Remove default padding */
+  }
+  
+  .dropdown-menu .dropdown-item {
+    display: block;
+    color: #000000; /* Text color for dropdown items */
+    padding: 10px 15px; /* Increased padding for a button-like feel */
+    text-decoration: none;
+    transition: background 0.3s ease, border 0.3s ease;
+    border: 1px solid black; /* Black border for dropdown items */
+    border-radius: 5px; /* Curvy shape for dropdown items */
+    margin: 5px 0; /* Space between items */
+    background-color: #FFFFFF; /* Default background color */
+  }
+  
+  .dropdown-menu .dropdown-item:hover {
+    color: #000000; /* Keep text color on hover */
+    border: 1px solid #000000; /* Ensure border color remains */
+  }
+  
+  .update-user:hover {
+    background-color: #055005 !important; /* Green background on hover */
+  }
+  
+  .logout:hover {
+    background-color: #838318; /* Yellow background on hover */
+  }
+  
+  .delete-user:hover {
+    background-color: #550808; /* Red background on hover */
+  }
+  
+  /* Display dropdown-menu when showDropdown is true */
+  .navbar-right:hover .dropdown-menu {
+    display: block;
+  }
+  
+  /* Navbar color transition effect */
+  @keyframes colorChange {
+    0% { background: #FFFFFF; }
+    50% { background: #00FF00; }
+    100% { background: #000000; }
+  }
+  
+  .navbar:hover {
+    animation: colorChange 5s infinite;
+  }
+  
+  /* Ensure clickable elements look appropriate */
+  .navbar-logo-link,
+  .navbar-title-link {
+    text-decoration: none; /* Remove underline from links */
+  }
+  
+  .navbar-logo-link img {
+    display: block; /* Remove any extra space below the image */
+  }
+  
+  .navbar-title-link {
+    color: inherit; /* Inherit color from parent */
+  }
+  
+  .filter-icon {
+    font-size: 24px; /* Adjust icon size */
+    color: #FFFFFF; /* White color for better contrast */
+    background-color: #000000; /* Dark background for visibility */
+    border-radius: 50%; /* Circular background */
+    padding: 5px; /* Padding to make the icon stand out */
+    cursor: pointer;
+    margin-left: 10px; /* Spacing between icons */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Shadow effect for better visibility */
+  }
+  
+  .filter-card {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 1000;
+  }
+  
+  .filter-input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .filter-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .reset-button {
+    background-color: white;
+    color: black;
+    border: 2px solid skyblue;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .filter-button {
+    background-color: blue;
+    color: white;
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .bookings-button {
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .bookings-button:hover {
+    background-color: darkblue;
+  }
+
+  
+.new-feature-icon {
+    font-size: 24px; /* Adjust icon size */
+    color: #FFFFFF; /* White color for better contrast */
+    background-color: #000000; /* Dark background for visibility */
+    border-radius: 50%; /* Circular background */
+    padding: 5px; /* Padding to make the icon stand out */
+    cursor: pointer;
+    margin-left: 10px; /* Spacing between icons */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Shadow effect for better visibility */
+}
+
+.add-movie-icon {
+    font-size: 24px; /* Adjust icon size */
+    color: #FFFFFF; /* White color for better contrast */
+    background-color: #000000; /* Dark background for visibility */
+    border-radius: 50%; /* Circular background */
+    padding: 5px; /* Padding to make the icon stand out */
+    cursor: pointer;
+    margin-left: 10px; /* Spacing between icons */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Shadow effect for better visibility */
+}

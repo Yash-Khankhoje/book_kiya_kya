@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from decimal import Decimal
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,6 +23,17 @@ class MovieSerializer(serializers.ModelSerializer):
         creator = request.user if request and request.user.is_authenticated else None
         movie = Movie.objects.create(creator=creator, **validated_data)
         return movie
+    
+class CitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cities
+        fields = ['id', 'city']
+
+        def create(self, validated_data):
+            request = self.context.get('request')
+            creator = request.user if request and request.user.is_authenticated else None
+            city = Cities.objects.create(creator=creator, **validated_data)
+            return city
     
 class ShowDetailsSerializer(serializers.ModelSerializer):
     class Meta:

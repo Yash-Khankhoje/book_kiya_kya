@@ -47,14 +47,20 @@ class Movie(models.Model):
     genres = models.CharField(max_length=255)
     description = models.TextField()
     language = models.CharField(max_length=100)
-    ratings = models.FloatField(validators=[MinValueValidator(1), MaxValueValidator(10)])
+    ratings = models.FloatField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     imageURL = models.URLField()
     creator = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='movies')
 
     def __str__(self):
         return self.name
     
+class Cities(models.Model):
+    id = models.AutoField(primary_key=True)
+    city = models.CharField(max_length=30)
+    creator = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='cities')
 
+    def __str__(self):
+        return self.name  
 
 
 class ShowDetails(models.Model):
@@ -77,7 +83,7 @@ class ShowDetails(models.Model):
 class Bookings(models.Model):
     show_details = models.ForeignKey(ShowDetails, on_delete=models.CASCADE)
     tickets = models.PositiveIntegerField(validators=[MinValueValidator(1)])
-    total_bill = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    total_bill = models.FloatField(blank=True, null=True)
     booking_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, default='Pending')
 
