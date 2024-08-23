@@ -38,9 +38,23 @@ const UpdateUser = ({ onCancel }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateUserData(formData));
+  
+    // Create a copy of formData
+    const updatedFormData = { ...formData };
+  
+    // Check if the password field is empty
+    if (!updatedFormData.password) {
+      // Remove the password key if it's empty
+      delete updatedFormData.password;
+    }
+  
+    // Dispatch the update action with the modified formData
+    dispatch(updateUserData(updatedFormData));
+  
     console.log("Update button clicked");
-    onCancel(); // Close the form after updating
+  
+    // Close the form after updating
+    onCancel();
   };
 
   return (
